@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "cy:run": "npm start & cypress run"
+    "cy:run": "TITLE=departureApiTest PORT=4243 npm start & cypress run & pkill --signal SIGINT departureApiTest"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
