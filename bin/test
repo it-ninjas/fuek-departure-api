@@ -1,0 +1,6 @@
+#!/bin/bash
+
+export TITLE=departureApiTest
+export PORT=4243
+
+npm start & cypress run & pkill --signal SIGINT departureApiTest
