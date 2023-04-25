@@ -1,11 +1,11 @@
 import debug from 'debug';
 import http from 'http';
+import app from '../app.js';
 
 /**
  * Get port from environment and store in Express.
  */
 
-const app = (await import('../app.js')).app;
 var port = normalizePort(process.env.PORT || '4242');
 app.set('port', port);
 process.title = process.env.TITLE || 'departureApiDev';

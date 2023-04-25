@@ -5,7 +5,7 @@ import logger from 'morgan';
 import { indexRoutes } from './routes/index.js';
 import { loginRoutes } from './routes/login.js';
 
-export const app = express();
+const app = express();
 
 // view engine setup
 //app.set('views', path.join(__dirname, 'views'));
@@ -35,3 +35,6 @@ app.use(function (err, req, res, _next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+console.log(app.routes);
+export default app;
