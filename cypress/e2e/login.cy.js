@@ -20,7 +20,7 @@ it('POST login does not return token if unknown email', () => {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: '{"email": "unkown@example.com", "password": "my-sweet-pw42"',
+    body: '{"email":"unkown@example.com","password":"my-sweet-pw42"}',
   }).should((response) => {
     expect(response.status).to.eq(400);
     expect(response.body).to.eq('Invalid Credentials');
@@ -35,7 +35,7 @@ it('POST login does not return token if invalid password', () => {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: '{"email": "alice@example.com", "password": "my-sweet-pw42"',
+    body: '{"email": "alice@example.com","password":"my-sweet-pw42"}',
   }).should((response) => {
     expect(response.status).to.eq(400);
     expect(response.body).to.eq('Invalid Credentials');
@@ -50,7 +50,7 @@ it('POST login return a valid token with valid email, password', () => {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: '{"email": "alice@example.com", "password": "pw42"',
+    body: '{"email":"alice@example.com","password":"pw42"}',
   }).should((response) => {
     expect(response.status).to.eq(200);
     //expect(response.body).to.eq('Invalid Credentials');

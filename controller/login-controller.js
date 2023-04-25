@@ -5,7 +5,7 @@ export class LoginController {
     this.userAdapter = new UserAdapter();
   }
 
-  create = async (req, res, next) => {
+  create = async (req, res, _next) => {
     try {
       // Get user input
       const { email, password } = req.body;
