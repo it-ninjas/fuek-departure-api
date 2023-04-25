@@ -1,16 +1,18 @@
+import { UserAdapter } from '../adapters/user-adapter.js';
+
 export class LoginController {
   constructor() {
-    //this.taskAdapter = new TaskAdapter();
+    this.userAdapter = new UserAdapter();
   }
 
-  create = async (req, res) => {
+  create = async (req, res, next) => {
     try {
       // Get user input
       const { email, password } = req.body;
 
       // Validate user input
       if (!(email && password)) {
-        res.status(400).send("All input is required");
+        res.status(400).send('Email and password required');
       }
       // Validate if user exist in our database
       const user = await User.findOne({ email });
@@ -21,8 +23,8 @@ export class LoginController {
           { user_id: user._id, email },
           process.env.TOKEN_KEY,
           {
-            expiresIn: "2h",
-          }
+            expiresIn: '2h',
+          },
         );
 
         // save user token
@@ -31,7 +33,7 @@ export class LoginController {
         // user
         res.status(200).json(user);
       }
-      res.status(400).send("Invalid Credentials");
+      res.status(400).send('Invalid Credentials');
     } catch (err) {
       console.log(err);
     }

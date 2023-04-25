@@ -1,17 +1,11 @@
-#!/usr/bin/env node
-
-/**
- * Module dependencies.
- */
-
-var app = require('../app');
-var debug = require('debug')('api:server');
-var http = require('http');
+import debug from 'debug';
+import http from 'http';
 
 /**
  * Get port from environment and store in Express.
  */
 
+const app = (await import('../app.js')).app;
 var port = normalizePort(process.env.PORT || '4242');
 app.set('port', port);
 process.title = process.env.TITLE || 'departureApiDev';
@@ -20,7 +14,7 @@ process.title = process.env.TITLE || 'departureApiDev';
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+const server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.

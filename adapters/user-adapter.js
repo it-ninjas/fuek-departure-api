@@ -1,9 +1,9 @@
-import { User } from '../models/user.js';
+import { User } from '../model/user.js';
 import { DbAdapter } from './db-adapter.js';
 
 export class UserAdapter extends DbAdapter {
   get(email) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, _reject) => {
       this.db.all(
         `SELECT * FROM users WHERE email = ${email} LIMIT 1`,
         [],

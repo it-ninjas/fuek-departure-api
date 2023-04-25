@@ -1,4 +1,4 @@
-const bcrypt = require('bcryptjs');
+import bcrypt from 'bcryptjs';
 
 export class User {
   constructor(id, email, firstName, lastName, encryptedPassword) {
