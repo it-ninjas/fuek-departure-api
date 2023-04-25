@@ -7,7 +7,7 @@
     "start": "node server.js",
     "setup": "./bin/setup",
     "test": "./bin/test",
-    "test:ci": "PORT=4243 npm start & cypress run"
+    "test:ci": "npm test"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

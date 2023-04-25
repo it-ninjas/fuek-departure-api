@@ -4,12 +4,19 @@ import { fileURLToPath } from 'url';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
-const dbFilePath = path.join(dirname, 'app.db');
 
 let db;
 
+function dbFilePath() {
+  let dbFilePath = path.join(dirname, 'app.db');
+  if (process.env.ENV === 'test') {
+    dbFilePath = path.join(dirname, 'app.test.db');
+  }
+  return dbFilePath;
+}
+
 async function createDB() {
-  db = new sqlite3.Database(dbFilePath, (err) => {
+  db = new sqlite3.Database(dbFilePath(), (err) => {
     if (err) {
       console.log('Getting error ' + err);
       exit(1);
@@ -17,7 +24,7 @@ async function createDB() {
   });
 }
 
-async function createUsers() {
+async function createTableUsers() {
   await db.run(`
     CREATE TABLE IF NOT EXISTS users (
       id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -31,7 +38,7 @@ async function createUsers() {
 
 async function run() {
   await createDB();
-  await createUsers();
+  await createTableUsers();
 }
 
 run().catch((ex) => {

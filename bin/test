@@ -2,8 +2,11 @@
 
 export PORT=4243
 export TITLE=departureApiT
+export ENV=test
 
-ENV=test node server.js & cypress run
+pkill -9 -f departureApiT
+npm run setup
+node server.js & cypress run
 
 echo 'Cypress tests completed, killing express webserver'
 pkill -9 -f departureApiT

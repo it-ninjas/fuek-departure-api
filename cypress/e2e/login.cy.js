@@ -42,11 +42,10 @@ it('POST login does not return token if invalid password', () => {
   });
 });
 
-it('POST login return a valid token with valid email, password', () => {
+it('POST login returns a valid token with valid email, password', () => {
   cy.request({
     method: 'POST',
     url: '/api/login',
-    failOnStatusCode: false,
     headers: {
       'Content-Type': 'application/json',
     },
