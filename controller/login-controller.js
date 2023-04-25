@@ -10,14 +10,17 @@ export class LoginController {
       // Get user input
       const { email, password } = req.body;
 
+      console.log(req.body);
+
       // Validate user input
       if (!(email && password)) {
         res.status(400).send('Email and password required');
+        return;
       }
       // Validate if user exist in our database
-      const user = await User.findOne({ email });
+      const user = await this.userAdapter.getByEmail(email);
 
-      if (user && (await bcrypt.compare(password, user.password))) {
+      if (user && (await user.isPasswordValid(password))) {
         // Create token
         const token = jwt.sign(
           { user_id: user._id, email },
@@ -30,10 +33,10 @@ export class LoginController {
         // save user token
         user.token = token;
 
-        // user
         res.status(200).json(user);
+      } else {
+        res.status(400).send('Invalid Credentials');
       }
-      res.status(400).send('Invalid Credentials');
     } catch (err) {
       console.log(err);
     }
