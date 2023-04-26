@@ -26,7 +26,7 @@ async function createDB() {
 }
 
 async function createTableUsers() {
-  await db.run(`
+  return db.run(`
     CREATE TABLE IF NOT EXISTS users (
       id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
       email VARCHAR NOT NULL,
@@ -40,7 +40,7 @@ async function createTableUsers() {
 async function seedUsers() {
   db.run('DELETE FROM users;');
 
-  bcrypt.hash('pw42', 10, (err, encryptedPassword) => {
+  bcrypt.hash('pw42', 10, (_err, encryptedPassword) => {
     db.run(`
       INSERT INTO users (email, first_name, last_name, encrypted_password)
       VALUES ("alice@example.com", "Alice", "Ninja", "${encryptedPassword}");`);
@@ -49,8 +49,12 @@ async function seedUsers() {
 
 async function run() {
   await createDB();
-  await createTableUsers();
-  await seedUsers();
+  createTableUsers().then(() => {
+    // needed since sometimes users table seams not present ...
+    setTimeout(() => {
+      seedUsers();
+    });
+  });
 }
 
 run().catch((ex) => {
