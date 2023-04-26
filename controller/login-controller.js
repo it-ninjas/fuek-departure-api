@@ -1,4 +1,5 @@
 import { UserAdapter } from '../adapters/user-adapter.js';
+import jwt from 'jsonwebtoken';
 
 export class LoginController {
   constructor() {
@@ -23,7 +24,7 @@ export class LoginController {
       if (user && (await user.isPasswordValid(password))) {
         // Create token
         const token = jwt.sign(
-          { user_id: user._id, email },
+          { user_id: user.id, email },
           process.env.TOKEN_KEY,
           {
             expiresIn: '2h',

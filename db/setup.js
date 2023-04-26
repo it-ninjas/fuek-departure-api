@@ -1,6 +1,7 @@
 import sqlite3 from 'sqlite3';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import bcrypt from 'bcrypt';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -36,9 +37,20 @@ async function createTableUsers() {
   `);
 }
 
+async function seedUsers() {
+  db.run('DELETE FROM users;');
+
+  bcrypt.hash('pw42', 10, (err, encryptedPassword) => {
+    db.run(`
+      INSERT INTO users (email, first_name, last_name, encrypted_password)
+      VALUES ("alice@example.com", "Alice", "Ninja", "${encryptedPassword}");`);
+  });
+}
+
 async function run() {
   await createDB();
   await createTableUsers();
+  await seedUsers();
 }
 
 run().catch((ex) => {

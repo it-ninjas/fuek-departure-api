@@ -1,4 +1,4 @@
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
 
 export class User {
   constructor(id, email, firstName, lastName, encryptedPassword) {
@@ -9,7 +9,9 @@ export class User {
     this.encryptedPassword = encryptedPassword;
   }
 
-  isPasswordValid(password) {
-    return bcrypt.compare(password, this.encryptedPassword);
+  async isPasswordValid(password) {
+    return bcrypt.compare(password, this.encryptedPassword).then((result) => {
+      return result;
+    });
   }
 }
