@@ -1,6 +1,7 @@
 Backend für das Frontend-ÜK Projekt
 
 ```
+npm install
 npm run setup
 npm start
 ```
