@@ -53,7 +53,7 @@ async function run() {
     // needed since sometimes users table seams not present ...
     setTimeout(() => {
       seedUsers();
-    });
+    }, 500);
   });
 }
 
