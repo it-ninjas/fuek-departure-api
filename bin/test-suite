@@ -1,0 +1,13 @@
+#!/bin/bash
+
+export PORT=4243
+export TITLE=departureApiT
+export ENV=test
+export TOKEN_KEY=test-key-only42
+
+pkill -9 -f departureApiT
+npm run setup
+node server.js & npx cypress open
+
+echo 'Cypress tests completed, killing express webserver'
+pkill -9 -f departureApiT

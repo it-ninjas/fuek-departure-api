@@ -14,4 +14,13 @@ export class User {
       return result;
     });
   }
+
+  toJson() {
+    return {
+      token: this.token,
+      firstName: this.firstName,
+      lastName: this.lastName,
+      email: this.email,
+    };
+  }
 }

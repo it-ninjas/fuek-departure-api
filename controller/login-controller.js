@@ -25,7 +25,7 @@ export class LoginController {
         // Create token
         const token = jwt.sign(
           { user_id: user.id, email },
-          process.env.TOKEN_KEY,
+          'never-use-a-static-key-in-prod-env',
           {
             expiresIn: '2h',
           },
@@ -34,7 +34,9 @@ export class LoginController {
         // save user token
         user.token = token;
 
-        res.status(200).json(user);
+        console.log('user :', user.toJson());
+
+        res.status(200).json(user.toJson());
       } else {
         res.status(400).send('Invalid Credentials');
       }

@@ -52,6 +52,11 @@ it('POST login returns a valid token with valid email, password', () => {
     body: '{"email":"alice@example.com","password":"pw42"}',
   }).should((response) => {
     expect(response.status).to.eq(200);
-    //expect(response.body).to.eq('Invalid Credentials');
+
+    const user = response.body;
+    expect(user.token).to.match(/^(?:[\w-]*\.){2}[\w-]*$/);
+    expect(user.firstName).to.eq('Alice');
+    expect(user.lastName).to.eq('Ninja');
+    expect(user.email).to.eq('alice@example.com');
   });
 });
