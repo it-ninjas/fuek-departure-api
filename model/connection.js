@@ -9,4 +9,12 @@ export class Connection {
   static fromJSON(json) {
     return new this(json.id, json.from, json.to, json.userId);
   }
+
+  toJson() {
+    return {
+      id: this.id,
+      from: this.from,
+      to: this.to
+    };
+  }
 }
