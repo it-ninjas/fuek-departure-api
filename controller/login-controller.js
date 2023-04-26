@@ -11,8 +11,6 @@ export class LoginController {
       // Get user input
       const { email, password } = req.body;
 
-      console.log(req.body);
-
       // Validate user input
       if (!(email && password)) {
         res.status(400).send('Email and password required');
@@ -33,8 +31,6 @@ export class LoginController {
 
         // save user token
         user.token = token;
-
-        console.log('user :', user.toJson());
 
         res.status(200).json(user.toJson());
       } else {
