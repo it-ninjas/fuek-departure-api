@@ -65,16 +65,15 @@ it('DELETE delete destroys existing entry', () => {
   });
 });
 
-//it('GET index returns authorization required without valid access token', () => {
-  //cy.request({
-    //method: 'GET',
-    //url: '/api/connections',
-  //}).should((response) => {
-    //expect(response.status).to.eq(200);
-
-    //const connections = response.body;
-    //const connection = connections[0];
-    //expect(connection.from).to.eq('Bern');
-    //expect(connection.to).to.eq('Brig');
-  //});
-//});
+it('GET index return access denied with invalid token', () => {
+  cy.request({
+    method: 'GET',
+    url: '/api/connections',
+    failOnStatusCode: false,
+    headers: {
+      'x-access-token': 'nid-gültig-so',
+    }
+  }).should((response) => {
+    expect(response.status).to.eq(401);
+  });
+});
