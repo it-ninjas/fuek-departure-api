@@ -3,11 +3,12 @@ import { DbAdapter } from './db-adapter.js';
 
 export class ConnectionAdapter extends DbAdapter {
   all(userId) {
+    userId = Number(userId);
     return new Promise((resolve, _reject) => {
       let entries = [];
       this.db.all(
         `SELECT * FROM connections WHERE user_id = :userId`,
-        { ':userId': userId },
+        { ':userId': Number(userId) },
         [],
         (err, rows) => {
           if (err) {
@@ -25,6 +26,7 @@ export class ConnectionAdapter extends DbAdapter {
   }
 
   create(connection, userId) {
+    userId = Number(userId);
     return new Promise((resolve, _reject) => {
       let entry = {};
       this.db.run(
@@ -63,12 +65,17 @@ export class ConnectionAdapter extends DbAdapter {
 
   delete(id, userId) {
     id = Number(id);
+    userId = Number(userId);
     return new Promise((resolve, _reject) => {
-      this.db.run(`DELETE FROM connections WHERE id = ${id};`, (err) => {
-        if (err) {
-          return console.error(err.message);
-        }
-      });
+      this.db.run(
+        'DELETE FROM connections WHERE id = :id AND user_id = :userId;',
+        { ':id': id, ':userId': userId },
+        (err) => {
+          if (err) {
+            return console.error(err.message);
+          }
+        },
+      );
 
       resolve();
     });
