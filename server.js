@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import { indexRoutes } from './routes/index.js';
 import { loginRoutes } from './routes/login.js';
+import { connectionsRoutes } from './routes/connections.js';
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(cookieParser());
 
 app.use('/', indexRoutes);
 app.use('/api/', loginRoutes);
+app.use('/api/', connectionsRoutes);
 
 // catch 404 and forward to error handler
 app.use(function (_req, _res, next) {

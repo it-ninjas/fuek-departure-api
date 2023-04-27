@@ -1,9 +1,9 @@
-var express = require("express");
-var router = express.Router();
+import express from 'express';
+import auth from '../utils/middleware/auth.js';
+import { connectionsController } from '../controller/connections-controller.js';
 
-/* GET users listing. */
-router.get("/connections", function (req, res, next) {
-  res.send("respond with a resource");
-});
+const router = express.Router();
 
-module.exports = router;
+router.post('/connections', auth, connectionsController.create);
+
+export const connectionsRoutes = router;

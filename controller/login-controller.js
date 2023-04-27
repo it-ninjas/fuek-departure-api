@@ -22,7 +22,7 @@ export class LoginController {
       if (user && (await user.isPasswordValid(password))) {
         // Create token
         const token = jwt.sign(
-          { user_id: user.id, email },
+          { userId: user.id, email },
           'never-use-a-static-key-in-prod-env',
           {
             expiresIn: '2h',

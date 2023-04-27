@@ -37,6 +37,17 @@ async function createTableUsers() {
   `);
 }
 
+async function createTableConnections() {
+  return db.run(`
+    CREATE TABLE IF NOT EXISTS connections (
+      id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+      "from" VARCHAR NOT NULL,
+      "to" VARCHAR NOT NULL,
+      user_id INTEGER NOT NULL
+    );
+  `);
+}
+
 async function seedUsers() {
   db.run('DELETE FROM users;');
 
@@ -47,13 +58,27 @@ async function seedUsers() {
   });
 }
 
+async function seedConnections() {
+  db.run('DELETE FROM connections;');
+
+  db.run(`INSERT INTO connections ("from", "to", userId)
+      VALUES ("Bern", "Brig", 1);`);
+}
+
 async function run() {
   await createDB();
   createTableUsers().then(() => {
     // needed since sometimes users table seams not present ...
     setTimeout(() => {
       seedUsers();
-    }, 500);
+    }, 100);
+  });
+
+  createTableConnections().then(() => {
+    // needed since sometimes users table seams not present ...
+    setTimeout(() => {
+      //seedConnections();
+    }, 100);
   });
 }
 
