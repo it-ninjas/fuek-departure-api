@@ -38,9 +38,27 @@ Example response:
 
 Returns HTTP Status `200` if login successful, else `400`
 
+### Authenticate
+
+To access the api endpoints (except login), you need to provide a valid token header to every request:
+
+`'x-access-token': 'valid-jwt-fetched-by-login'`
+
 ### Connections
 
-http://localhost:4242/api/connections
+*GET http://localhost:4242/api/connections*
+
+lists all available connections
+
+*POST http://localhost:4242/api/connections*
+
+creates new connection entry
+
+params: { from: 'Locarno', to: 'Visp' }
+
+*DELETE http://localhost:4242/api/connections/42*
+
+deletes an existing connection entry
 
 # Testing
 
