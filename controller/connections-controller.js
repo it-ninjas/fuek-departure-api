@@ -2,29 +2,32 @@ import { Connection } from '../model/connection.js';
 import { ConnectionAdapter } from '../adapters/connection-adapter.js';
 
 export class ConnectionsController {
+  get userId() {
+    return 1;
+  }
   constructor() {
     this.connectionAdapter = new ConnectionAdapter();
   }
 
   index = async (req, res) => {
-    let entries = await this.connectionAdapter.all(userId);
+    let entries = await this.connectionAdapter.all(this.userId);
     res.json(entries || []);
   };
 
   update = async (req, res) => {
     const connection = Connection.fromJSON(req.body);
-    await this.connectionAdapter.update(req.params.id, userId, connection);
+    await this.connectionAdapter.update(req.params.id, connection);
     res.json(connection);
   };
 
   create = async (req, res) => {
     const connection = Connection.fromJSON(req.body);
-    await this.connectionAdapter.create(userId, connection);
+    await this.connectionAdapter.create(connection, this.userId);
     res.json(connection);
   };
 
   delete = async (req, res) => {
-    await this.connectionAdapter.delete(id, userId);
+    await this.connectionAdapter.delete(req.params.id, this.userId);
     res.json();
   };
 }

@@ -61,7 +61,7 @@ async function seedUsers() {
 async function seedConnections() {
   db.run('DELETE FROM connections;');
 
-  db.run(`INSERT INTO connections ("from", "to", userId)
+  db.run(`INSERT INTO connections ("from", "to", user_id)
       VALUES ("Bern", "Brig", 1);`);
 }
 
@@ -77,7 +77,7 @@ async function run() {
   createTableConnections().then(() => {
     // needed since sometimes users table seams not present ...
     setTimeout(() => {
-      //seedConnections();
+      seedConnections();
     }, 100);
   });
 }

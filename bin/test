@@ -6,6 +6,7 @@ export ENV=test
 export TOKEN_KEY=test-key-only42
 
 pkill -9 -f departureApiT
+rm -rf db/app.test.db
 npm run setup
 node server.js & cypress run
 
