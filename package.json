@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "setup": "./bin/setup",
+    "setup": "node db/setup.js",
     "test": "./bin/test",
     "test:ci": "npm test"
   },
