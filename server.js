@@ -1,4 +1,3 @@
-import debug from 'debug';
 import http from 'http';
 import createError from 'http-errors';
 import express from 'express';
@@ -7,8 +6,11 @@ import logger from 'morgan';
 import { indexRoutes } from './routes/index.js';
 import { loginRoutes } from './routes/login.js';
 import { connectionsRoutes } from './routes/connections.js';
+import cors from 'cors';
 
 const app = express();
+
+app.use(cors());
 
 // view engine setup
 //app.set('views', path.join(__dirname, 'views'));

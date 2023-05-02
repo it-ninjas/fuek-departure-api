@@ -16,6 +16,9 @@ it('GET index lists all saved connections', () => {
     const connection = connections[0];
     expect(connection.from).to.eq('Bern');
     expect(connection.to).to.eq('Brig');
+
+    // expect cors header
+    expect(response.headers['access-control-allow-origin']).to.eq('*');
   });
 });
 
