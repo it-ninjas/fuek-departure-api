@@ -11,13 +11,19 @@ export class ConnectionsController {
     res.json(entries || []);
   };
 
-  update = async (req, res) => {
-    const connection = Connection.fromJSON(req.body);
-    await this.connectionAdapter.update(req.params.id, connection);
-    res.json(connection);
-  };
+  //update = async (req, res) => {
+    //const connection = Connection.fromJSON(req.body);
+    //await this.connectionAdapter.update(req.params.id, connection);
+    //res.json(connection);
+  //};
 
   create = async (req, res) => {
+    const body = req.body
+    if (!body.from || !body.to) {
+      res.status(422).send('Valid connection json with from/to required');
+      return;
+    }
+
     const connection = Connection.fromJSON(req.body);
     await this.connectionAdapter.create(connection, req.user.userId);
     res.json(connection);

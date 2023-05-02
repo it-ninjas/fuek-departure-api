@@ -46,6 +46,38 @@ it('POST create creates new connection entry', () => {
   });
 });
 
+it('POST create does not create entry if invalid json or from/to missing', () => {
+  cy.request({
+    method: 'POST',
+    url: '/api/connections',
+    failOnStatusCode: false,
+    body: '{"to":"Chur"}',
+  }).should((response) => {
+    expect(response.status).to.eq(422);
+    expect(response.body).to.eq('Valid connection json with from/to required');
+  });
+
+  cy.request({
+    method: 'POST',
+    url: '/api/connections',
+    failOnStatusCode: false,
+    body: '{"from":"Chur"}',
+  }).should((response) => {
+    expect(response.status).to.eq(422);
+    expect(response.body).to.eq('Valid connection json with from/to required');
+  });
+
+  cy.request({
+    method: 'POST',
+    url: '/api/connections',
+    failOnStatusCode: false,
+    body: '',
+  }).should((response) => {
+    expect(response.status).to.eq(422);
+    expect(response.body).to.eq('Valid connection json with from/to required');
+  });
+});
+
 it('DELETE delete destroys existing entry', () => {
   cy.request({
     method: 'DELETE',
